@@ -72,9 +72,7 @@ show tables;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="consoles/springboot-developer" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ef381c88-519a-42a8-8a79-14848e0c0c56" />

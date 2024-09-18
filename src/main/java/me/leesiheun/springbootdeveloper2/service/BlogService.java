@@ -2,6 +2,7 @@ package me.leesiheun.springbootdeveloper2.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.leesiheun.springbootdeveloper2.config.error.exception.ArticleNotFoundException;
 import me.leesiheun.springbootdeveloper2.domain.Article;
 import me.leesiheun.springbootdeveloper2.dto.AddArticleRequest;
 import me.leesiheun.springbootdeveloper2.dto.UpdateArticleRequest;
@@ -27,15 +28,15 @@ public class BlogService {
 
     public Article findById(long id) {
         return blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+                .orElseThrow(ArticleNotFoundException::new);
     }
 
     public void delete(long id) {
-      Article article = blogRepository.findById(id)
-              .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
-      authorizeArticleAuthor(article);
-      blogRepository.delete(article);
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
     }
 
     @Transactional
