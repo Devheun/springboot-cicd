@@ -73,9 +73,8 @@ show tables;]]></console>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/users" />
       <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/article" />
-      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/refresh_token" />
+      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/comments" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
@@ -85,6 +84,9 @@ show tables;]]></console>
     <filter-actions connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" dataset="blog.usres" active-filter-id="" />
     <filter-actions connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" dataset="blog.refresh_token" active-filter-id="069a8f76-3969-4c9d-988c-36fdb31f5c5a">
       <filter id="069a8f76-3969-4c9d-988c-36fdb31f5c5a" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" dataset="blog.comments" active-filter-id="4f35e4df-a6cc-41c8-bad4-132a2d43dc60">
+      <filter id="4f35e4df-a6cc-41c8-bad4-132a2d43dc60" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
     </filter-actions>
     <filter-actions connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" dataset="blog.article" active-filter-id="37d8ad86-5f10-495c-8160-fe5050ab8c2a">
       <filter id="37d8ad86-5f10-495c-8160-fe5050ab8c2a" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />

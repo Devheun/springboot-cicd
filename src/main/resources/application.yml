@@ -6,6 +6,7 @@ spring:
         ddl-auto: update
         format_sql: true
     defer-datasource-initialization: true
+    generate-ddl: true
   h2:
     console:
       enabled: true
