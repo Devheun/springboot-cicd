@@ -4,6 +4,7 @@ const deleteButton = document.getElementById('delete-btn');
 if (deleteButton) {
     deleteButton.addEventListener('click', event => {
         let id = document.getElementById('article-id').value;
+
         function success() {
             alert('삭제가 완료되었습니다.');
             location.replace('/articles');
@@ -14,7 +15,7 @@ if (deleteButton) {
             location.replace('/articles');
         }
 
-        httpRequest('DELETE',`/api/articles/${id}`, null, success, fail);
+        httpRequest('DELETE', `/api/articles/${id}`, null, success, fail);
     });
 }
 
@@ -41,7 +42,7 @@ if (modifyButton) {
             location.replace(`/articles/${id}`);
         }
 
-        httpRequest('PUT',`/api/articles/${id}`, body, success, fail);
+        httpRequest('PUT', `/api/articles/${id}`, body, success, fail);
     });
 }
 
@@ -55,16 +56,18 @@ if (createButton) {
             title: document.getElementById('title').value,
             content: document.getElementById('content').value
         });
+
         function success() {
             alert('등록 완료되었습니다.');
             location.replace('/articles');
         };
+
         function fail() {
             alert('등록 실패했습니다.');
             location.replace('/articles');
         };
 
-        httpRequest('POST','/api/articles', body, success, fail)
+        httpRequest('POST', '/api/articles', body, success, fail)
     });
 }
 
@@ -82,14 +85,40 @@ if (logoutButton) {
             deleteCookie('refresh_token');
             location.replace('/login');
         }
+
         function fail() {
             alert('로그아웃 실패했습니다.');
         }
 
-        httpRequest('DELETE','/api/refresh-token', null, success, fail);
+        httpRequest('DELETE', '/api/refresh-token', null, success, fail);
     });
 }
 
+const commentCreateButton = document.getElementById('comment-create-btn');
+
+if (commentCreateButton) {
+    commentCreateButton.addEventListener('click', event => {
+        let articleId = document.getElementById('article-id').value;
+        let content = document.getElementById('content').value;
+
+        body = JSON.stringify({
+            articleId: articleId,
+            content: content
+        });
+
+        function success() {
+            alert('등록 완료되었습니다.');
+            location.replace('/articles/' + articleId);
+        }
+
+        function fail() {
+            alert('등록 실패했습니다.');
+            location.replace('/articles/' + articleId);
+        }
+
+        httpRequest('POST', '/api/comments', body, success, fail);
+    });
+}
 
 
 // 쿠키를 가져오는 함수

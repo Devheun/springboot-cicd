@@ -4,9 +4,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.leesiheun.springbootdeveloper2.config.error.exception.ArticleNotFoundException;
 import me.leesiheun.springbootdeveloper2.domain.Article;
+import me.leesiheun.springbootdeveloper2.domain.Comment;
 import me.leesiheun.springbootdeveloper2.dto.AddArticleRequest;
+import me.leesiheun.springbootdeveloper2.dto.AddCommentRequest;
 import me.leesiheun.springbootdeveloper2.dto.UpdateArticleRequest;
 import me.leesiheun.springbootdeveloper2.repository.BlogRepository;
+import me.leesiheun.springbootdeveloper2.repository.CommentRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.List;
 public class BlogService {
 
     private final BlogRepository blogRepository;
+    private final CommentRepository commentRepository;
 
     public Article save(AddArticleRequest request, String userName) {
         return blogRepository.save(request.toEntity(userName));
@@ -58,4 +62,9 @@ public class BlogService {
         }
     }
 
+    public Comment addComment(AddCommentRequest request, String userName) {
+        Article article = blogRepository.findById(request.getArticleId())
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + request.getArticleId()));
+        return commentRepository.save(request.toEntity(userName, article));
+    }
 }
