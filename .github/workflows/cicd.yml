@@ -1,8 +1,8 @@
-name: CI
+name: CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name : Get current time
+      - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current-time
         with:
