@@ -72,7 +72,11 @@ show tables;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/users" />
+      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/article" />
+      <object connection-id="ef381c88-519a-42a8-8a79-14848e0c0c56" object-ref="schemas/blog/tables/refresh_token" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ef381c88-519a-42a8-8a79-14848e0c0c56" />
