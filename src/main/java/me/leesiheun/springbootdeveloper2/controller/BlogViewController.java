@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,9 +31,11 @@ public class BlogViewController {
     }
 
     @GetMapping("/articles/{id}")
-    public String getArticle(@PathVariable Long id, Model model) {
+    public String getArticle(@PathVariable Long id, Model model, Principal principal) {
         Article article = blogService.findArticleById(id);
         model.addAttribute("article", new ArticleViewResponse(article));
+        String username = principal != null ? principal.getName() : null;
+        model.addAttribute("username", username);
         return "article";
     }
 

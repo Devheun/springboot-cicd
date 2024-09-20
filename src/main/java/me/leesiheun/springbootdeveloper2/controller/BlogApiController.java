@@ -50,9 +50,9 @@ public class BlogApiController {
     }
 
     @PutMapping("/api/articles/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable long id,
-                                                 @RequestBody UpdateArticleRequest request) {
-        Article updatedArticle = blogService.updateArticle(id, request);
+    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable long id,
+                                                         @RequestBody UpdateArticleRequest request) {
+        ArticleResponse updatedArticle = blogService.updateArticle(id, request);
         return ResponseEntity.ok()
                 .body(updatedArticle);
     }
@@ -73,10 +73,10 @@ public class BlogApiController {
 
     }
 
-//    @PutMapping("/api/comments/{id}")
-//    public ResponseEntity<Comment> updateComment(@PathVariable long id, @RequestBody UpdateCommentRequest request) {
-//        Comment updatedComment = blogService.updateComment(id, request);
-//        return ResponseEntity.ok()
-//                .body(updatedComment);
-//    }
+    @PutMapping("/api/comments/{id}")
+    public ResponseEntity<CommentResponse> updateComment(@PathVariable long id, @RequestBody UpdateCommentRequest request) {
+        CommentResponse updatedComment = blogService.updateComment(id, request);
+        return ResponseEntity.ok()
+                .body(updatedComment);
+    }
 }

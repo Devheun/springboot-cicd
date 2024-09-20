@@ -6,9 +6,7 @@ import me.leesiheun.springbootdeveloper2.config.error.exception.ArticleNotFoundE
 import me.leesiheun.springbootdeveloper2.config.error.exception.CommentNotFoundException;
 import me.leesiheun.springbootdeveloper2.domain.Article;
 import me.leesiheun.springbootdeveloper2.domain.Comment;
-import me.leesiheun.springbootdeveloper2.dto.AddArticleRequest;
-import me.leesiheun.springbootdeveloper2.dto.AddCommentRequest;
-import me.leesiheun.springbootdeveloper2.dto.UpdateArticleRequest;
+import me.leesiheun.springbootdeveloper2.dto.*;
 import me.leesiheun.springbootdeveloper2.repository.BlogRepository;
 import me.leesiheun.springbootdeveloper2.repository.CommentRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,14 +48,13 @@ public class BlogService {
     }
 
     @Transactional
-    public Article updateArticle(long id, UpdateArticleRequest request) {
-        Article article = blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+    public ArticleResponse updateArticle(long id, UpdateArticleRequest request) {
+        Article article = this.findArticleById(id);
 
         authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
 
-        return article;
+        return new ArticleResponse(article);
     }
 
     // 게시글을 작성한 유저인지 확인
@@ -68,15 +65,28 @@ public class BlogService {
         }
     }
 
+    // 댓글을 작성한 유저인지 확인
+    private static void authorizeCommentAuthor(Comment comment) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!comment.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
+    }
+
+
     public Comment addComment(AddCommentRequest request, String userName) {
         Article article = blogRepository.findById(request.getArticleId())
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + request.getArticleId()));
         return commentRepository.save(request.toEntity(userName, article));
     }
 
-//    @Transactional
-//    public Comment updateComment(long id, UpdateCommentRequest request) {
-//        Comment comment = commentRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-//    }
+    @Transactional
+    public CommentResponse updateComment(long id, UpdateCommentRequest request) {
+        Comment comment = this.findCommentById(id);
+
+        authorizeCommentAuthor(comment);
+        comment.update(request.getContent());
+
+        return new CommentResponse(comment);
+    }
 }
