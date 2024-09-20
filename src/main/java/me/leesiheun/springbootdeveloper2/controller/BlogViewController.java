@@ -17,6 +17,7 @@ import java.util.List;
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
+
     @GetMapping("/articles")
     public String getArticles(Model model) {
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
@@ -30,7 +31,7 @@ public class BlogViewController {
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
-        Article article = blogService.findById(id);
+        Article article = blogService.findArticleById(id);
         model.addAttribute("article", new ArticleViewResponse(article));
         return "article";
     }
@@ -40,7 +41,7 @@ public class BlogViewController {
         if (id == null) {
             model.addAttribute("article", new ArticleViewResponse());
         } else {
-            Article article = blogService.findById(id);
+            Article article = blogService.findArticleById(id);
             model.addAttribute("article", new ArticleViewResponse(article));
         }
 

@@ -3,6 +3,7 @@ package me.leesiheun.springbootdeveloper2.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.leesiheun.springbootdeveloper2.config.error.exception.ArticleNotFoundException;
+import me.leesiheun.springbootdeveloper2.config.error.exception.CommentNotFoundException;
 import me.leesiheun.springbootdeveloper2.domain.Article;
 import me.leesiheun.springbootdeveloper2.domain.Comment;
 import me.leesiheun.springbootdeveloper2.dto.AddArticleRequest;
@@ -30,9 +31,14 @@ public class BlogService {
         return blogRepository.findAll();
     }
 
-    public Article findById(long id) {
+    public Article findArticleById(long id) {
         return blogRepository.findById(id)
                 .orElseThrow(ArticleNotFoundException::new);
+    }
+
+    public Comment findCommentById(long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(CommentNotFoundException::new);
     }
 
     public void delete(long id) {
@@ -44,7 +50,7 @@ public class BlogService {
     }
 
     @Transactional
-    public Article update(long id, UpdateArticleRequest request) {
+    public Article updateArticle(long id, UpdateArticleRequest request) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
@@ -67,4 +73,10 @@ public class BlogService {
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + request.getArticleId()));
         return commentRepository.save(request.toEntity(userName, article));
     }
+
+//    @Transactional
+//    public Comment updateComment(long id, UpdateCommentRequest request) {
+//        Comment comment = commentRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+//    }
 }

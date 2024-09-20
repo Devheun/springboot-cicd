@@ -37,7 +37,7 @@ public class BlogApiController {
 
     @GetMapping("/api/articles/{id}")
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
-        Article article = blogService.findById(id);
+        Article article = blogService.findArticleById(id);
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
     }
@@ -52,10 +52,18 @@ public class BlogApiController {
     @PutMapping("/api/articles/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable long id,
                                                  @RequestBody UpdateArticleRequest request) {
-        Article updatedArticle = blogService.update(id, request);
+        Article updatedArticle = blogService.updateArticle(id, request);
         return ResponseEntity.ok()
                 .body(updatedArticle);
     }
+
+    @GetMapping("/api/comments/{id}")
+    public ResponseEntity<CommentResponse> findComment(@PathVariable long id) {
+        Comment comment = blogService.findCommentById(id);
+        return ResponseEntity.ok()
+                .body(new CommentResponse(comment));
+    }
+
 
     @PostMapping("/api/comments")
     public ResponseEntity<AddCommentResponse> addComment(@RequestBody AddCommentRequest request, Principal principal) {
@@ -64,4 +72,11 @@ public class BlogApiController {
                 .body(new AddCommentResponse(savedComment));
 
     }
+
+//    @PutMapping("/api/comments/{id}")
+//    public ResponseEntity<Comment> updateComment(@PathVariable long id, @RequestBody UpdateCommentRequest request) {
+//        Comment updatedComment = blogService.updateComment(id, request);
+//        return ResponseEntity.ok()
+//                .body(updatedComment);
+//    }
 }
