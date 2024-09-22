@@ -39,7 +39,7 @@ public class BlogService {
                 .orElseThrow(CommentNotFoundException::new);
     }
 
-    public void delete(long id) {
+    public void deleteArticle(long id) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
@@ -88,5 +88,12 @@ public class BlogService {
         comment.update(request.getContent());
 
         return new CommentResponse(comment);
+    }
+
+    public void deleteComment(long id) {
+        Comment comment = this.findCommentById(id);
+
+        authorizeCommentAuthor(comment);
+        commentRepository.delete(comment);
     }
 }

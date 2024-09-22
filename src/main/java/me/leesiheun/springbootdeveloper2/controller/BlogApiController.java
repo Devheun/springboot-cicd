@@ -44,7 +44,7 @@ public class BlogApiController {
 
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
-        blogService.delete(id);
+        blogService.deleteArticle(id);
         return ResponseEntity.ok()
                 .build();
     }
@@ -78,5 +78,12 @@ public class BlogApiController {
         CommentResponse updatedComment = blogService.updateComment(id, request);
         return ResponseEntity.ok()
                 .body(updatedComment);
+    }
+
+    @DeleteMapping("/api/comments/{id}")
+    public ResponseEntity<Void> deleteComment(@PathVariable long id) {
+        blogService.deleteComment(id);
+        return ResponseEntity.ok()
+                .build();
     }
 }
